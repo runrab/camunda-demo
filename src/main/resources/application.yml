@@ -1,0 +1,91 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+# Swagger配置
+swagger:
+  # 是否开启swagger
+  enabled: true
+  # 请求前缀
+  pathMapping: /
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 自动创建表 如果不加nullDatabaseMeansCurrent=true  或者databaseSchemaUpdate
+#    url: jdbc:mysql://localhost:3306/workflow?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&nullCatalogMeansCurrent=true
+    url: jdbc:mysql://localhost:3306/workflow?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+mybatis:
+  check-config-location: false
+  #config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.runrab.domain
+  configuration:
+    #使全局的映射器启用或禁用缓存
+    cache-enabled: true
+    #允许JDBC 生成主键
+    use-generated-keys: true
+    #默认的执行类型（SIMPLE: 简单；REUSE: 执行器可能重复使用prepared statements语句；BATCH: 执行器可以重复执行语句和批量更新）
+    default-executor-type: simple
+    #全局启用或禁用延迟加载。当禁用时，所有关联对象都会即时加载。查询时关闭关联对象即时加载以提高性能
+    lazy-loading-enabled: false
+    #当启用时，有延迟加载属性的对象在被调用时将会完全加载任意属性。否则，每种属性将会按需要加载
+    aggressive-lazy-loading: true
+    #是否允许单条sql 返回多个数据集  (取决于驱动的兼容性)
+    multiple-result-sets-enabled: true
+    #是否可以使用列的别名 (取决于驱动的兼容性)
+    use-column-label: true
+    #指定MyBatis自动映射方式（数据基表的列 NONE：不映射　PARTIAL:只会自动映射简单, 没有嵌套的结果  FULL:会自动映射任意复杂的结果(嵌套的或其他情况)）
+    auto-mapping-behavior: full
+    #存在未知列时的处理方式
+    auto-mapping-unknown-column-behavior: warning
+    #使用驼峰命名法转换字段
+    map-underscore-to-camel-case: true
+    #设置本地缓存范围（session:数据共享 statement:语句范围不会数据共享 ）
+    local-cache-scope: session
+    #设置当JDBC类型为空时，插入空值时的处理方式
+    jdbc-type-for-null: null
+    default-enum-type-handler:
+    log-impl: org.apache.ibatis.logging.log4j2.Log4j2Impl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+camunda:
+  bpm:
+    admin-user:
+      id: admin
+      password: admin
+    auto-deployment-enabled: false #自动部署xml文件
+    history-level: audit #日志级别 full  audit 只能在第一次配置
+    database:
+      # 注意 第一次 想自动创建表 必须 设置为true
+#      schema-update: true
+      schema-update: false    # schema-update: true  true:数据库添加bpm表，第一次添加表即可，后续改成false 注意
+      # 或者通过配置文件 修改 databaseSchemaUpdate: true # 自动建立表
+
+knife4j:
+  # 开启增强配置
+  enable: true
+  # 开启Swagger的Basic认证功能,默认是false
+  basic:
+    enable: false
+    # Basic认证用户名
+    username: admin
+    # Basic认证密码
+    password: admin
+logging:
+  level:
+    #    org.camunda: error
+    com.baomidou.dynamic: error
+    org:
+      slf4j:
+        helpers:
+          Log4jLoggerFactory: error
+    org.apache.ibatis: error
+db-info:
+  host: 127.0.0.1
+  port: 3306
+  username: root
+  password: 123456
