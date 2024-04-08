@@ -6,17 +6,17 @@ pagehelper:
   helper-dialect: mysql
   reasonable: true
 # Swagger配置
-swagger:
-  # 是否开启swagger
-  enabled: true
-  # 请求前缀
-  pathMapping: /
+#swagger:
+#  # 是否开启swagger
+#  enabled: true
+#  # 请求前缀
+#  pathMapping: /
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     # 自动创建表 如果不加nullDatabaseMeansCurrent=true  或者databaseSchemaUpdate
 #    url: jdbc:mysql://localhost:3306/workflow?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&nullCatalogMeansCurrent=true
-    url: jdbc:mysql://localhost:3306/workflow?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://localhost:3306/workflow?useUnicode=true&characterEncoding=utf8&useSSL=false&nullDatabaseMeansCurrent=true
     username: root
     password: 123456
 mybatis:
@@ -62,23 +62,30 @@ camunda:
     database:
       # 注意 第一次 想自动创建表 必须 设置为true
 #      schema-update: true
-      schema-update: false    # schema-update: true  true:数据库添加bpm表，第一次添加表即可，后续改成false 注意
+      schema-update: true    # schema-update: true  true:数据库添加bpm表，第一次添加表即可，后续改成false 注意
       # 或者通过配置文件 修改 databaseSchemaUpdate: true # 自动建立表
+    # 接入Spring 事件总线 这些属性分别控制执行、历史事件和任务的三个事件流
+    eventing:
+      execution: true
+      history: true
+      task: true
+      skippable: true
 
-knife4j:
-  # 开启增强配置
-  enable: true
-  # 开启Swagger的Basic认证功能,默认是false
-  basic:
-    enable: false
-    # Basic认证用户名
-    username: admin
-    # Basic认证密码
-    password: admin
+#knife4j:
+#  # 开启增强配置
+#  enable: true
+#  # 开启Swagger的Basic认证功能,默认是false
+#  basic:
+#    enable: false
+#    # Basic认证用户名
+#    username: admin
+#    # Basic认证密码
+#    password: admin
 logging:
   level:
     #    org.camunda: error
     com.baomidou.dynamic: error
+    com.runrab.camunda: info
     org:
       slf4j:
         helpers:

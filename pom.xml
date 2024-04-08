@@ -28,7 +28,7 @@
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.7.9</version>
+        <version>3.1.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -36,7 +36,7 @@
       <dependency>
         <groupId>org.camunda.bpm</groupId>
         <artifactId>camunda-bom</artifactId>
-        <version>7.19.0</version>
+        <version>7.20.0</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
@@ -68,7 +68,7 @@
     <dependency>
       <groupId>org.camunda.bpm</groupId>
       <artifactId>camunda-engine-rest-openapi</artifactId>
-      <version>7.19.0</version>
+      <version>7.20.0</version>
     </dependency>
 
     <!-- Mysql驱动包 8 -->
@@ -84,11 +84,11 @@
       <version>${pagehelper.version}</version>
     </dependency>
     <!-- Swagger依赖 -->
-    <dependency>
-      <groupId>com.github.xiaoymin</groupId>
-      <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
-      <version>${knife4j.version}</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>com.github.xiaoymin</groupId>-->
+<!--      <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>-->
+<!--      <version>${knife4j.version}</version>-->
+<!--    </dependency>-->
     <!-- 阿里JSON解析器 -->
     <dependency>
       <groupId>com.alibaba.fastjson2</groupId>
@@ -162,7 +162,18 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>2.7.9</version>
+        <configuration>
+          <mainClass>com.runrab.camunda.Application</mainClass>
+          <!-- 如果没有该配置，devtools不会生效 -->
+<!--          <fork>true</fork>-->
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
